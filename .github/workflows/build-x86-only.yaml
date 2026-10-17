@@ -13,21 +13,17 @@ jobs:
       - name: Install System Dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y debootstrap squashfs-tools xz-utils dosfstools mtools systemd-container fdisk
+          sudo apt-get install -y debootstrap squashfs-tools xz-utils dosfstools mtools systemd-container fdisk gdisk
 
       - name: Run Customized x86 Build Script
         run: |
           chmod +x build_x86.sh
           sudo ./build_x86.sh
 
-      - name: Compress and Rename the Final Image
-        run: |
-          mv x86kiosk.img AnotterKiosk-Custom-x86.img
-          xz -9 -T 0 AnotterKiosk-Custom-x86.img
-
       - name: Upload Finished Image to GitHub
         uses: actions/upload-artifact@v4
         with:
           name: Custom-x86-Kiosk-Image
-          path: AnotterKiosk-Custom-x86.img.xz
+          # Uses a wildcard to find the compressed image the script generates natively
+          path: "*.img.xz"
           retention-days: 5
