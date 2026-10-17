@@ -14,7 +14,7 @@ rm -rf "${BUILD_DIR}" || true
 mkdir -p "${BUILD_DIR}"
 rm x86kiosk.img || true
 
-truncate -s 10G x86kiosk.img
+truncate -s 5G x86kiosk.img
 
 PARTLAYOUT=$(cat <<-END
 label: gpt
